@@ -19,7 +19,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   if (isVercel) {
     axiosConfig.proxy = {
       host: '196.115.252.173',
-      port: 3001,
+      port: 3000,
       // auth: { username: 'youruser', password: 'yourpass' }, // Uncomment if you set up auth
     };
   }
