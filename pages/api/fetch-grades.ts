@@ -13,7 +13,17 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   }
 
   const jar = new CookieJar();
-  const client = wrapper(axios.create({ jar, timeout: 15000 }));
+  // Use proxy only on Vercel (production)
+  const isVercel = !!process.env.VERCEL;
+  const axiosConfig: any = { jar, timeout: 15000 };
+  if (isVercel) {
+    axiosConfig.proxy = {
+      host: '196.115.252.173',
+      port: 3001,
+      // auth: { username: 'youruser', password: 'yourpass' }, // Uncomment if you set up auth
+    };
+  }
+  const client = wrapper(axios.create(axiosConfig));
 
   try {
     const tokenPage = await client.get('https://massarservice.men.gov.ma/moutamadris/Account');
