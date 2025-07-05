@@ -42,7 +42,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     );
 
     if (!loginRes.data.includes('ChangePassword')) {
-      return res.status(401).json({ error: 'Login failed' });
+      return res.status(401).json({ error: 'Login failed', details: loginRes.data });
     }
 
     await client.post('https://massarservice.men.gov.ma/moutamadris/General/SetCulture?culture=en', null);
@@ -67,12 +67,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     );
 
     if (!gradesRes.data || !gradesRes.data.includes('Classe')) {
-      return res.status(500).json({ error: 'Could not fetch grades' });
+      return res.status(500).json({ error: 'Could not fetch grades', details: gradesRes.data });
     }
 
     res.json({ rawHTML: gradesRes.data });
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Something went wrong' });
+  } catch (error: any) {
+    console.error('API error:', error);
+    res.status(500).json({ error: 'Something went wrong', details: error?.message, stack: error?.stack });
   }
 }
