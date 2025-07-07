@@ -6,8 +6,9 @@ Nobody likes to use the clunky massar service website, not to mention when the s
 - [Live site](http://moutamadris.hopto.org/)
 
 # Run locally
-
-'git clone https://github.com/Maxylium/DirectMoutamadris/'
-'cd DirectMoutamadris'
-'npm install'
-'npm run dev'
+```
+git clone https://github.com/Maxylium/DirectMoutamadris/
+cd DirectMoutamadris
+npm install
+npm run dev
+```
